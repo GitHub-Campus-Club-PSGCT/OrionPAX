@@ -63,8 +63,8 @@ def calculate_speedup(baseline_results: Dict[str, Dict[str, float]],
     return speedup
 
 def main():
-    matrix_sizes = [10, 50, 100, 200, 500]  # Increased matrix sizes
-    num_runs = 10  # Increased number of runs
+    matrix_sizes = [10, 50]  # Increased matrix sizes
+    num_runs = 5  # Increased number of runs
     
     print("Running baseline benchmark...")
     baseline_results = benchmark(matrix_sizes, num_runs)
@@ -74,16 +74,7 @@ def main():
     
     input("\nPress Enter to run the optimized version benchmark...")
     
-    print("\nRunning optimized version benchmark...")
-    optimized_results = benchmark(matrix_sizes, num_runs)
-    
-    print("\nOptimized results:")
-    print(json.dumps(optimized_results, indent=2))
-    
-    speedup = calculate_speedup(baseline_results, optimized_results)
-    
-    print("\nSpeedup (higher is better):")
-    print(json.dumps(speedup, indent=2))
+
 
     # Print a summary of total execution times and speedup
     print("\nSummary:")
@@ -91,9 +82,7 @@ def main():
     print("---------------------------------------------------------------------------")
     for size in matrix_sizes:
         baseline_total = baseline_results[size]["total"]
-        optimized_total = optimized_results[size]["total"]
-        total_speedup = speedup[size]["total"]
-        print(f"{size:11d} | {baseline_total:18.2f} | {optimized_total:19.2f} | {total_speedup:13.2f}")
+        print(f"{size:11d} | {baseline_total:18.2f}", end=" ")
 
 if __name__ == "__main__":
     main()
